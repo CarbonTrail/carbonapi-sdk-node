@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Carbonapi from 'carbonapi';
+import Carbontrail from 'carbonapi';
 import { APIUserAbortError } from 'carbonapi';
 import { Headers } from 'carbonapi/core';
 import defaultFetch, { Response, type RequestInit, type RequestInfo } from 'node-fetch';
@@ -20,7 +20,7 @@ describe('instantiate client', () => {
   });
 
   describe('defaultHeaders', () => {
-    const client = new Carbonapi({
+    const client = new Carbontrail({
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
       apiKey: 'My API Key',
@@ -52,7 +52,7 @@ describe('instantiate client', () => {
 
   describe('defaultQuery', () => {
     test('with null query params given', () => {
-      const client = new Carbonapi({
+      const client = new Carbontrail({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo' },
         apiKey: 'My API Key',
@@ -61,7 +61,7 @@ describe('instantiate client', () => {
     });
 
     test('multiple default query params', () => {
-      const client = new Carbonapi({
+      const client = new Carbontrail({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
         apiKey: 'My API Key',
@@ -70,7 +70,7 @@ describe('instantiate client', () => {
     });
 
     test('overriding with `undefined`', () => {
-      const client = new Carbonapi({
+      const client = new Carbontrail({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { hello: 'world' },
         apiKey: 'My API Key',
@@ -80,7 +80,7 @@ describe('instantiate client', () => {
   });
 
   test('custom fetch', async () => {
-    const client = new Carbonapi({
+    const client = new Carbontrail({
       baseURL: 'http://localhost:5000/',
       apiKey: 'My API Key',
       fetch: (url) => {
@@ -97,7 +97,7 @@ describe('instantiate client', () => {
   });
 
   test('custom signal', async () => {
-    const client = new Carbonapi({
+    const client = new Carbontrail({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
       apiKey: 'My API Key',
       fetch: (...args) => {
@@ -129,7 +129,7 @@ describe('instantiate client', () => {
       return new Response(JSON.stringify({}), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Carbonapi({
+    const client = new Carbontrail({
       baseURL: 'http://localhost:5000/',
       apiKey: 'My API Key',
       fetch: testFetch,
@@ -141,69 +141,69 @@ describe('instantiate client', () => {
 
   describe('baseUrl', () => {
     test('trailing slash', () => {
-      const client = new Carbonapi({ baseURL: 'http://localhost:5000/custom/path/', apiKey: 'My API Key' });
+      const client = new Carbontrail({ baseURL: 'http://localhost:5000/custom/path/', apiKey: 'My API Key' });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
 
     test('no trailing slash', () => {
-      const client = new Carbonapi({ baseURL: 'http://localhost:5000/custom/path', apiKey: 'My API Key' });
+      const client = new Carbontrail({ baseURL: 'http://localhost:5000/custom/path', apiKey: 'My API Key' });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
 
     afterEach(() => {
-      process.env['CARBONAPI_BASE_URL'] = undefined;
+      process.env['CARBONTRAIL_BASE_URL'] = undefined;
     });
 
     test('explicit option', () => {
-      const client = new Carbonapi({ baseURL: 'https://example.com', apiKey: 'My API Key' });
+      const client = new Carbontrail({ baseURL: 'https://example.com', apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://example.com');
     });
 
     test('env variable', () => {
-      process.env['CARBONAPI_BASE_URL'] = 'https://example.com/from_env';
-      const client = new Carbonapi({ apiKey: 'My API Key' });
+      process.env['CARBONTRAIL_BASE_URL'] = 'https://example.com/from_env';
+      const client = new Carbontrail({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
 
     test('empty env variable', () => {
-      process.env['CARBONAPI_BASE_URL'] = ''; // empty
-      const client = new Carbonapi({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://api.carbonapi.io/api');
+      process.env['CARBONTRAIL_BASE_URL'] = ''; // empty
+      const client = new Carbontrail({ apiKey: 'My API Key' });
+      expect(client.baseURL).toEqual('https://api.au.carbonapi.io/api');
     });
 
     test('blank env variable', () => {
-      process.env['CARBONAPI_BASE_URL'] = '  '; // blank
-      const client = new Carbonapi({ apiKey: 'My API Key' });
-      expect(client.baseURL).toEqual('https://api.carbonapi.io/api');
+      process.env['CARBONTRAIL_BASE_URL'] = '  '; // blank
+      const client = new Carbontrail({ apiKey: 'My API Key' });
+      expect(client.baseURL).toEqual('https://api.au.carbonapi.io/api');
     });
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new Carbonapi({ maxRetries: 4, apiKey: 'My API Key' });
+    const client = new Carbontrail({ maxRetries: 4, apiKey: 'My API Key' });
     expect(client.maxRetries).toEqual(4);
 
     // default
-    const client2 = new Carbonapi({ apiKey: 'My API Key' });
+    const client2 = new Carbontrail({ apiKey: 'My API Key' });
     expect(client2.maxRetries).toEqual(2);
   });
 
   test('with environment variable arguments', () => {
     // set options via env var
     process.env['API_KEY'] = 'My API Key';
-    const client = new Carbonapi();
+    const client = new Carbontrail();
     expect(client.apiKey).toBe('My API Key');
   });
 
   test('with overridden environment variable arguments', () => {
     // set options via env var
     process.env['API_KEY'] = 'another My API Key';
-    const client = new Carbonapi({ apiKey: 'My API Key' });
+    const client = new Carbontrail({ apiKey: 'My API Key' });
     expect(client.apiKey).toBe('My API Key');
   });
 });
 
 describe('request building', () => {
-  const client = new Carbonapi({ apiKey: 'My API Key' });
+  const client = new Carbontrail({ apiKey: 'My API Key' });
 
   describe('Content-Length', () => {
     test('handles multi-byte characters', () => {
@@ -245,7 +245,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Carbonapi({ apiKey: 'My API Key', timeout: 10, fetch: testFetch });
+    const client = new Carbontrail({ apiKey: 'My API Key', timeout: 10, fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -275,7 +275,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Carbonapi({ apiKey: 'My API Key', fetch: testFetch, maxRetries: 4 });
+    const client = new Carbontrail({ apiKey: 'My API Key', fetch: testFetch, maxRetries: 4 });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
 
@@ -299,7 +299,7 @@ describe('retries', () => {
       capturedRequest = init;
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
-    const client = new Carbonapi({ apiKey: 'My API Key', fetch: testFetch, maxRetries: 4 });
+    const client = new Carbontrail({ apiKey: 'My API Key', fetch: testFetch, maxRetries: 4 });
 
     expect(
       await client.request({
@@ -328,7 +328,7 @@ describe('retries', () => {
       capturedRequest = init;
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
-    const client = new Carbonapi({
+    const client = new Carbontrail({
       apiKey: 'My API Key',
       fetch: testFetch,
       maxRetries: 4,
@@ -361,7 +361,7 @@ describe('retries', () => {
       capturedRequest = init;
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
-    const client = new Carbonapi({ apiKey: 'My API Key', fetch: testFetch, maxRetries: 4 });
+    const client = new Carbontrail({ apiKey: 'My API Key', fetch: testFetch, maxRetries: 4 });
 
     expect(
       await client.request({
@@ -388,7 +388,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Carbonapi({ apiKey: 'My API Key', fetch: testFetch });
+    const client = new Carbontrail({ apiKey: 'My API Key', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -415,7 +415,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Carbonapi({ apiKey: 'My API Key', fetch: testFetch });
+    const client = new Carbontrail({ apiKey: 'My API Key', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
