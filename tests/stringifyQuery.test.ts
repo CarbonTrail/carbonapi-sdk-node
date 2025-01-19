@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Carbonapi } from 'carbonapi';
+import { Carbontrail } from 'carbonapi';
 
-const { stringifyQuery } = Carbonapi.prototype as any;
+const { stringifyQuery } = Carbontrail.prototype as any;
 
 describe(stringifyQuery, () => {
   for (const [input, expected] of [

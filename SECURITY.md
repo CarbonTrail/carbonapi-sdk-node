@@ -16,11 +16,11 @@ before making any information public.
 ## Reporting Non-SDK Related Security Issues
 
 If you encounter security issues that are not directly related to SDKs but pertain to the services
-or products provided by Carbonapi please follow the respective company's security reporting guidelines.
+or products provided by Carbontrail please follow the respective company's security reporting guidelines.
 
-### Carbonapi Terms and Policies
+### Carbontrail Terms and Policies
 
-Please contact dev-feedback@carbonapi.com for any questions or concerns regarding security of our services.
+Please contact hello@carbontrail.co for any questions or concerns regarding security of our services.
 
 ---
 

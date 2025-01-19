@@ -20,7 +20,7 @@ export interface ClientOptions {
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
-   * Defaults to process.env['CARBONAPI_BASE_URL'].
+   * Defaults to process.env['CARBONTRAIL_BASE_URL'].
    */
   baseURL?: string | null | undefined;
 
@@ -75,18 +75,18 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Carbonapi API.
+ * API Client for interfacing with the Carbontrail API.
  */
-export class Carbonapi extends Core.APIClient {
+export class Carbontrail extends Core.APIClient {
   apiKey: string;
 
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the Carbonapi API.
+   * API Client for interfacing with the Carbontrail API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['API_KEY'] ?? undefined]
-   * @param {string} [opts.baseURL=process.env['CARBONAPI_BASE_URL'] ?? https://api.carbonapi.io/api] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['CARBONTRAIL_BASE_URL'] ?? https://api.au.carbonapi.io/api] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -95,20 +95,20 @@ export class Carbonapi extends Core.APIClient {
    * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
-    baseURL = Core.readEnv('CARBONAPI_BASE_URL'),
+    baseURL = Core.readEnv('CARBONTRAIL_BASE_URL'),
     apiKey = Core.readEnv('API_KEY'),
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
-      throw new Errors.CarbonapiError(
-        "The API_KEY environment variable is missing or empty; either provide it, or instantiate the Carbonapi client with an apiKey option, like new Carbonapi({ apiKey: 'My API Key' }).",
+      throw new Errors.CarbontrailError(
+        "The API_KEY environment variable is missing or empty; either provide it, or instantiate the Carbontrail client with an apiKey option, like new Carbontrail({ apiKey: 'My API Key' }).",
       );
     }
 
     const options: ClientOptions = {
       apiKey,
       ...opts,
-      baseURL: baseURL || `https://api.carbonapi.io/api`,
+      baseURL: baseURL || `https://api.au.carbonapi.io/api`,
     };
 
     super({
@@ -141,10 +141,10 @@ export class Carbonapi extends Core.APIClient {
     return { 'x-api-key': this.apiKey };
   }
 
-  static Carbonapi = this;
+  static Carbontrail = this;
   static DEFAULT_TIMEOUT = 60000; // 1 minute
 
-  static CarbonapiError = Errors.CarbonapiError;
+  static CarbontrailError = Errors.CarbontrailError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -162,8 +162,8 @@ export class Carbonapi extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-Carbonapi.Documents = Documents;
-export declare namespace Carbonapi {
+Carbontrail.Documents = Documents;
+export declare namespace Carbontrail {
   export type RequestOptions = Core.RequestOptions;
 
   export {
@@ -175,7 +175,7 @@ export declare namespace Carbonapi {
 
 export { toFile, fileFromPath } from './uploads';
 export {
-  CarbonapiError,
+  CarbontrailError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,
@@ -190,4 +190,4 @@ export {
   UnprocessableEntityError,
 } from './error';
 
-export default Carbonapi;
+export default Carbontrail;
