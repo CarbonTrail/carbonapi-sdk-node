@@ -42,12 +42,12 @@ export let isFsReadStream: Shims['isFsReadStream'] | undefined = undefined;
 export function setShims(shims: Shims, options: { auto: boolean } = { auto: false }) {
   if (auto) {
     throw new Error(
-      `you must \`import 'carbonapi/shims/${shims.kind}'\` before importing anything else from carbonapi`,
+      `you must \`import 'carbonapi-node/shims/${shims.kind}'\` before importing anything else from carbonapi-node`,
     );
   }
   if (kind) {
     throw new Error(
-      `can't \`import 'carbonapi/shims/${shims.kind}'\` after \`import 'carbonapi/shims/${kind}'\``,
+      `can't \`import 'carbonapi-node/shims/${shims.kind}'\` after \`import 'carbonapi-node/shims/${kind}'\``,
     );
   }
   auto = options.auto;

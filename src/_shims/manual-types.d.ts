@@ -4,8 +4,8 @@
 /**
  * Types will get added to this namespace when you import one of the following:
  *
- *   import 'carbonapi/shims/node'
- *   import 'carbonapi/shims/web'
+ *   import 'carbonapi-node/shims/node'
+ *   import 'carbonapi-node/shims/web'
  *
  * Importing more than one will cause type and runtime errors.
  */
