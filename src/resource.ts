@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import type { Carbontrail } from './index';
+import type { CarbonAPI } from './index';
 
 export class APIResource {
-  protected _client: Carbontrail;
+  protected _client: CarbonAPI;
 
-  constructor(client: Carbontrail) {
+  constructor(client: CarbonAPI) {
     this._client = client;
   }
 }
