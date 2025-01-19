@@ -1,6 +1,6 @@
 {
   "name": "carbonapi",
-  "version": "0.0.1-alpha.0",
+  "version": "0.1.0-alpha.1",
   "description": "The official TypeScript library for the Carbon API API",
   "author": "Carbon API <hello@carbontrail.co>",
   "types": "dist/index.d.ts",
