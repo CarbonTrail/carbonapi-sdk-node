@@ -20,7 +20,7 @@ export class Documents extends APIResource {
 }
 
 export interface DocumentBatchUploadResponse {
-  batchId: string;
+  batchId?: string;
 }
 
 export type DocumentBatchUploadParams =

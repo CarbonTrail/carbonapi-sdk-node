@@ -160,14 +160,13 @@ export namespace BatchRetrieveResponse {
       periodTo: string;
 
       /**
-       * The quantity of the line item. It may not always be the quantity directly
-       * related to the line item.
+       * The quantity of the line item.
        */
       quantity: number;
 
       /**
        * A reference for the line item, such as a docket number, card number, or other
-       * identifier. For fuel, try and use the group name, or REGO
+       * meaningful identifier
        */
       reference: string;
 
