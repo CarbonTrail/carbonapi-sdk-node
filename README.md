@@ -22,7 +22,9 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import CarbonAPI from 'carbonapi-node';
 
-const client = new CarbonAPI();
+const client = new CarbonAPI({
+  apiKey: process.env['API_KEY'], // This is the default and can be omitted
+});
 
 async function main() {
   const batch = await client.documents.batch.retrieve();
@@ -41,7 +43,9 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import CarbonAPI from 'carbonapi-node';
 
-const client = new CarbonAPI();
+const client = new CarbonAPI({
+  apiKey: process.env['API_KEY'], // This is the default and can be omitted
+});
 
 async function main() {
   const batch: CarbonAPI.Documents.BatchRetrieveResponse = await client.documents.batch.retrieve();
