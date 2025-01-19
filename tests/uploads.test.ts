@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { toFile, type ResponseLike } from 'carbonapi/uploads';
-import { File } from 'carbonapi/_shims/index';
+import { toFile, type ResponseLike } from 'carbonapi-node/uploads';
+import { File } from 'carbonapi-node/_shims/index';
 
 class MyClass {
   name: string = 'foo';

@@ -1,6 +1,6 @@
-import { multipartFormRequestOptions, createForm } from 'carbonapi/core';
-import { Blob } from 'carbonapi/_shims/index';
-import { toFile } from 'carbonapi';
+import { multipartFormRequestOptions, createForm } from 'carbonapi-node/core';
+import { Blob } from 'carbonapi-node/_shims/index';
+import { toFile } from 'carbonapi-node';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {

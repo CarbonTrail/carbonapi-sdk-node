@@ -9,9 +9,9 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "carbonapi/_shims/auto/*": ["src/_shims/auto/*-node"],
-      "carbonapi/*": ["src/*"],
-      "carbonapi": ["src/index.ts"]
+      "carbonapi-node/_shims/auto/*": ["src/_shims/auto/*-node"],
+      "carbonapi-node/*": ["src/*"],
+      "carbonapi-node": ["src/index.ts"]
     },
     "noEmit": true,
 

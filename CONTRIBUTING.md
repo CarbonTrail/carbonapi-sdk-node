@@ -55,12 +55,12 @@ $ cd carbonapi-sdk-node
 # With yarn
 $ yarn link
 $ cd ../my-package
-$ yarn link carbonapi
+$ yarn link carbonapi-node
 
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global carbonapi
+$ pnpm link -—global carbonapi-node
 ```
 
 ## Running tests
