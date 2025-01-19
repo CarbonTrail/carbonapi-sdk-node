@@ -7,9 +7,9 @@ const config: JestConfigWithTsJest = {
     '^.+\\.(t|j)sx?$': ['@swc/jest', { sourceMaps: 'inline' }],
   },
   moduleNameMapper: {
-    '^carbonapi$': '<rootDir>/src/index.ts',
-    '^carbonapi/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
-    '^carbonapi/(.*)$': '<rootDir>/src/$1',
+    '^carbonapi-node$': '<rootDir>/src/index.ts',
+    '^carbonapi-node/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
+    '^carbonapi-node/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: [
     '<rootDir>/ecosystem-tests/',

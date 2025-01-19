@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "carbonapi/*": ["dist/src/*"],
-      "carbonapi": ["dist/src/index.ts"],
+      "carbonapi-node/*": ["dist/src/*"],
+      "carbonapi-node": ["dist/src/index.ts"],
     },
     "noEmit": false,
     "declaration": true,

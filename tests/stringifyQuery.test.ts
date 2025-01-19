@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { CarbonAPI } from 'carbonapi';
+import { CarbonAPI } from 'carbonapi-node';
 
 const { stringifyQuery } = CarbonAPI.prototype as any;
 

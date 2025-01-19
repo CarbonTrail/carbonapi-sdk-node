@@ -1,5 +1,5 @@
 {
-  "name": "carbonapi",
+  "name": "carbonapi-node",
   "version": "0.1.0-alpha.1",
   "description": "The official TypeScript library for the Carbon API API",
   "author": "Carbon API <hello@carbontrail.co>",
@@ -59,8 +59,8 @@
     "./shims/web.mjs"
   ],
   "imports": {
-    "carbonapi": ".",
-    "carbonapi/*": "./src/*"
+    "carbonapi-node": ".",
+    "carbonapi-node/*": "./src/*"
   },
   "exports": {
     "./_shims/auto/*": {

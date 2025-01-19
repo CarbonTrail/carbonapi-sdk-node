@@ -1,6 +1,6 @@
 # Carbon API Node API Library
 
-[![NPM version](https://img.shields.io/npm/v/carbonapi.svg)](https://npmjs.org/package/carbonapi) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/carbonapi)
+[![NPM version](https://img.shields.io/npm/v/carbonapi-node.svg)](https://npmjs.org/package/carbonapi-node) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/carbonapi-node)
 
 This library provides convenient access to the Carbon API REST API from server-side TypeScript or JavaScript.
 
@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainlessapi.com/).
 ## Installation
 
 ```sh
-npm install carbonapi
+npm install carbonapi-node
 ```
 
 ## Usage
@@ -20,7 +20,7 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import CarbonAPI from 'carbonapi';
+import CarbonAPI from 'carbonapi-node';
 
 const client = new CarbonAPI();
 
@@ -39,7 +39,7 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import CarbonAPI from 'carbonapi';
+import CarbonAPI from 'carbonapi-node';
 
 const client = new CarbonAPI();
 
@@ -206,11 +206,11 @@ add the following import before your first import `from "CarbonAPI"`:
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
-import 'carbonapi/shims/web';
-import CarbonAPI from 'carbonapi';
+import 'carbonapi-node/shims/web';
+import CarbonAPI from 'carbonapi-node';
 ```
 
-To do the inverse, add `import "carbonapi/shims/node"` (which does import polyfills).
+To do the inverse, add `import "carbonapi-node/shims/node"` (which does import polyfills).
 This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/CarbonTrail/carbonapi-sdk-node/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
@@ -220,7 +220,7 @@ which can be used to inspect or alter the `Request` or `Response` before/after e
 
 ```ts
 import { fetch } from 'undici'; // as one example
-import CarbonAPI from 'carbonapi';
+import CarbonAPI from 'carbonapi-node';
 
 const client = new CarbonAPI({
   fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {

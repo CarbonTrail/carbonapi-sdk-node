@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import CarbonAPI from 'carbonapi';
-import { APIUserAbortError } from 'carbonapi';
-import { Headers } from 'carbonapi/core';
+import CarbonAPI from 'carbonapi-node';
+import { APIUserAbortError } from 'carbonapi-node';
+import { Headers } from 'carbonapi-node/core';
 import defaultFetch, { Response, type RequestInit, type RequestInfo } from 'node-fetch';
 
 describe('instantiate client', () => {
