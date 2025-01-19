@@ -1,5 +1,5 @@
-import { createResponseHeaders } from 'carbonapi/core';
-import { Headers } from 'carbonapi/_shims/index';
+import { createResponseHeaders } from 'carbonapi-node/core';
+import { Headers } from 'carbonapi-node/_shims/index';
 
 describe('response parsing', () => {
   // TODO: test unicode characters
