@@ -14,7 +14,7 @@ import {
 
 export interface ClientOptions {
   /**
-   * The API key to use for authentication.
+   * The API key to use for authentication. Fetch this from the portal.
    */
   apiKey?: string | undefined;
 
