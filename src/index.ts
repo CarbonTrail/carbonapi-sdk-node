@@ -6,10 +6,11 @@ import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
 import {
-  DocumentBatchUploadParams,
-  DocumentBatchUploadResponse,
+  DocumentRetrieveResponse,
+  DocumentUploadParams,
+  DocumentUploadResponse,
   Documents,
-} from './resources/documents/documents';
+} from './resources/documents';
 
 export interface ClientOptions {
   /**
@@ -168,8 +169,9 @@ export declare namespace CarbonAPI {
 
   export {
     Documents as Documents,
-    type DocumentBatchUploadResponse as DocumentBatchUploadResponse,
-    type DocumentBatchUploadParams as DocumentBatchUploadParams,
+    type DocumentRetrieveResponse as DocumentRetrieveResponse,
+    type DocumentUploadResponse as DocumentUploadResponse,
+    type DocumentUploadParams as DocumentUploadParams,
   };
 }
 
