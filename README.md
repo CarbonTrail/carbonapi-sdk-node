@@ -27,17 +27,9 @@ const client = new CarbonAPI({
 });
 
 async function main() {
-  const response = await client.documents.upload({
-    documents: [
-      {
-        fileUrl:
-          'https://s3.eu-west-2.amazonaws.com/my-bucket/my-object?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20130524%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20130524T000000Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=b59cfa898d8b4c4e4355b2f9a98fb8c145dda827c92d9ac34897f0554d1e5bf4',
-      },
-    ],
-    type: 'url',
-  });
+  const document = await client.documents.retrieve('REPLACE_ME');
 
-  console.log(response.batchId);
+  console.log(document.status);
 }
 
 main();
@@ -56,16 +48,7 @@ const client = new CarbonAPI({
 });
 
 async function main() {
-  const params: CarbonAPI.DocumentUploadParams = {
-    documents: [
-      {
-        fileUrl:
-          'https://s3.eu-west-2.amazonaws.com/my-bucket/my-object?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20130524%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20130524T000000Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=b59cfa898d8b4c4e4355b2f9a98fb8c145dda827c92d9ac34897f0554d1e5bf4',
-      },
-    ],
-    type: 'url',
-  };
-  const response: CarbonAPI.DocumentUploadResponse = await client.documents.upload(params);
+  const document: CarbonAPI.DocumentRetrieveResponse = await client.documents.retrieve('REPLACE_ME');
 }
 
 main();
@@ -82,25 +65,15 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const response = await client.documents
-    .upload({
-      documents: [
-        {
-          fileUrl:
-            'https://s3.eu-west-2.amazonaws.com/my-bucket/my-object?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20130524%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20130524T000000Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=b59cfa898d8b4c4e4355b2f9a98fb8c145dda827c92d9ac34897f0554d1e5bf4',
-        },
-      ],
-      type: 'url',
-    })
-    .catch(async (err) => {
-      if (err instanceof CarbonAPI.APIError) {
-        console.log(err.status); // 400
-        console.log(err.name); // BadRequestError
-        console.log(err.headers); // {server: 'nginx', ...}
-      } else {
-        throw err;
-      }
-    });
+  const document = await client.documents.retrieve('REPLACE_ME').catch(async (err) => {
+    if (err instanceof CarbonAPI.APIError) {
+      console.log(err.status); // 400
+      console.log(err.name); // BadRequestError
+      console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
+    }
+  });
 }
 
 main();
@@ -135,7 +108,7 @@ const client = new CarbonAPI({
 });
 
 // Or, configure per-request:
-await client.documents.upload({ documents: [{ fileUrl: 'https://s3.eu-west-2.amazonaws.com/my-bucket/my-object?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20130524%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20130524T000000Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=b59cfa898d8b4c4e4355b2f9a98fb8c145dda827c92d9ac34897f0554d1e5bf4' }], type: 'url' }, {
+await client.documents.retrieve('REPLACE_ME', {
   maxRetries: 5,
 });
 ```
@@ -152,7 +125,7 @@ const client = new CarbonAPI({
 });
 
 // Override per-request:
-await client.documents.upload({ documents: [{ fileUrl: 'https://s3.eu-west-2.amazonaws.com/my-bucket/my-object?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20130524%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20130524T000000Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=b59cfa898d8b4c4e4355b2f9a98fb8c145dda827c92d9ac34897f0554d1e5bf4' }], type: 'url' }, {
+await client.documents.retrieve('REPLACE_ME', {
   timeout: 5 * 1000,
 });
 ```
@@ -173,33 +146,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new CarbonAPI();
 
-const response = await client.documents
-  .upload({
-    documents: [
-      {
-        fileUrl:
-          'https://s3.eu-west-2.amazonaws.com/my-bucket/my-object?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20130524%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20130524T000000Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=b59cfa898d8b4c4e4355b2f9a98fb8c145dda827c92d9ac34897f0554d1e5bf4',
-      },
-    ],
-    type: 'url',
-  })
-  .asResponse();
+const response = await client.documents.retrieve('REPLACE_ME').asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.documents
-  .upload({
-    documents: [
-      {
-        fileUrl:
-          'https://s3.eu-west-2.amazonaws.com/my-bucket/my-object?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20130524%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20130524T000000Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=b59cfa898d8b4c4e4355b2f9a98fb8c145dda827c92d9ac34897f0554d1e5bf4',
-      },
-    ],
-    type: 'url',
-  })
-  .withResponse();
+const { data: document, response: raw } = await client.documents.retrieve('REPLACE_ME').withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(response.batchId);
+console.log(document.status);
 ```
 
 ### Making custom/undocumented requests
@@ -303,20 +256,9 @@ const client = new CarbonAPI({
 });
 
 // Override per-request:
-await client.documents.upload(
-  {
-    documents: [
-      {
-        fileUrl:
-          'https://s3.eu-west-2.amazonaws.com/my-bucket/my-object?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIOSFODNN7EXAMPLE%2F20130524%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20130524T000000Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=b59cfa898d8b4c4e4355b2f9a98fb8c145dda827c92d9ac34897f0554d1e5bf4',
-      },
-    ],
-    type: 'url',
-  },
-  {
-    httpAgent: new http.Agent({ keepAlive: false }),
-  },
-);
+await client.documents.retrieve('REPLACE_ME', {
+  httpAgent: new http.Agent({ keepAlive: false }),
+});
 ```
 
 ## Semantic versioning
