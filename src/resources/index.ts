@@ -2,6 +2,7 @@
 
 export {
   Documents,
-  type DocumentBatchUploadResponse,
-  type DocumentBatchUploadParams,
-} from './documents/documents';
+  type DocumentRetrieveResponse,
+  type DocumentUploadResponse,
+  type DocumentUploadParams,
+} from './documents';
