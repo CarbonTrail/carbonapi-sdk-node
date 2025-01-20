@@ -5,7 +5,12 @@ import * as Core from './core';
 import * as Errors from './error';
 import * as Uploads from './uploads';
 import * as API from './resources/index';
-import { DocumentUploadParams, DocumentUploadResponse, Documents } from './resources/documents';
+import {
+  DocumentRetrieveResponse,
+  DocumentUploadParams,
+  DocumentUploadResponse,
+  Documents,
+} from './resources/documents';
 
 export interface ClientOptions {
   /**
@@ -164,6 +169,7 @@ export declare namespace CarbonAPI {
 
   export {
     Documents as Documents,
+    type DocumentRetrieveResponse as DocumentRetrieveResponse,
     type DocumentUploadResponse as DocumentUploadResponse,
     type DocumentUploadParams as DocumentUploadParams,
   };
