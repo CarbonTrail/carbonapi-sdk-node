@@ -5,7 +5,7 @@ import * as Core from '../core';
 
 export class Documents extends APIResource {
   /**
-   * Retrieve a batch by ID
+   * Retrieve a batch
    */
   retrieve(batchId: string, options?: Core.RequestOptions): Core.APIPromise<DocumentRetrieveResponse> {
     return this._client.get(`/documents/batch/${batchId}`, options);
