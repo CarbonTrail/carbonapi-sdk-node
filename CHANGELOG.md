@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-01-20)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/CarbonTrail/carbonapi-sdk-node/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* **api:** api update ([#9](https://github.com/CarbonTrail/carbonapi-sdk-node/issues/9)) ([a6bc0b6](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/a6bc0b62dd2edef803c44eb130313d7b663b070d))
+* **api:** manual updates ([#11](https://github.com/CarbonTrail/carbonapi-sdk-node/issues/11)) ([9c8dd6b](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/9c8dd6b960b610dc7ce1b4a8ddba56edf90547a1))
+
 ## 0.1.0-alpha.2 (2025-01-19)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/CarbonTrail/carbonapi-sdk-node/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
