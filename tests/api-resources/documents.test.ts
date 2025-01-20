@@ -10,7 +10,7 @@ const client = new CarbonAPI({
 
 describe('resource documents', () => {
   test('retrieve', async () => {
-    const responsePromise = client.documents.retrieve();
+    const responsePromise = client.documents.retrieve('123e4567-e89b-12d3-a456-426614174000');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,9 +22,9 @@ describe('resource documents', () => {
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.documents.retrieve({ path: '/_stainless_unknown_path' })).rejects.toThrow(
-      CarbonAPI.NotFoundError,
-    );
+    await expect(
+      client.documents.retrieve('123e4567-e89b-12d3-a456-426614174000', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(CarbonAPI.NotFoundError);
   });
 
   test('upload: only required params', async () => {

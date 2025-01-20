@@ -27,7 +27,7 @@ const client = new CarbonAPI({
 });
 
 async function main() {
-  const document = await client.documents.retrieve();
+  const document = await client.documents.retrieve('REPLACE_ME');
 
   console.log(document.status);
 }
@@ -48,7 +48,7 @@ const client = new CarbonAPI({
 });
 
 async function main() {
-  const document: CarbonAPI.DocumentRetrieveResponse = await client.documents.retrieve();
+  const document: CarbonAPI.DocumentRetrieveResponse = await client.documents.retrieve('REPLACE_ME');
 }
 
 main();
@@ -65,7 +65,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const document = await client.documents.retrieve().catch(async (err) => {
+  const document = await client.documents.retrieve('REPLACE_ME').catch(async (err) => {
     if (err instanceof CarbonAPI.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -108,7 +108,7 @@ const client = new CarbonAPI({
 });
 
 // Or, configure per-request:
-await client.documents.retrieve({
+await client.documents.retrieve('REPLACE_ME', {
   maxRetries: 5,
 });
 ```
@@ -125,7 +125,7 @@ const client = new CarbonAPI({
 });
 
 // Override per-request:
-await client.documents.retrieve({
+await client.documents.retrieve('REPLACE_ME', {
   timeout: 5 * 1000,
 });
 ```
@@ -146,11 +146,11 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new CarbonAPI();
 
-const response = await client.documents.retrieve().asResponse();
+const response = await client.documents.retrieve('REPLACE_ME').asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: document, response: raw } = await client.documents.retrieve().withResponse();
+const { data: document, response: raw } = await client.documents.retrieve('REPLACE_ME').withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(document.status);
 ```
@@ -256,7 +256,7 @@ const client = new CarbonAPI({
 });
 
 // Override per-request:
-await client.documents.retrieve({
+await client.documents.retrieve('REPLACE_ME', {
   httpAgent: new http.Agent({ keepAlive: false }),
 });
 ```

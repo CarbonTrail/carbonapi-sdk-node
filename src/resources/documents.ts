@@ -7,8 +7,8 @@ export class Documents extends APIResource {
   /**
    * Retrieve a batch
    */
-  retrieve(options?: Core.RequestOptions): Core.APIPromise<DocumentRetrieveResponse> {
-    return this._client.get('/documents/batch/:batchId', options);
+  retrieve(batchId: string, options?: Core.RequestOptions): Core.APIPromise<DocumentRetrieveResponse> {
+    return this._client.get(`/documents/batch/${batchId}`, options);
   }
 
   /**
