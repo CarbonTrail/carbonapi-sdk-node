@@ -22,12 +22,14 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import CarbonAPI from 'carbonapi-node';
 
-const client = new CarbonAPI();
+const client = new CarbonAPI({
+  apiKey: process.env['API_KEY'], // This is the default and can be omitted
+});
 
 async function main() {
-  const batch = await client.documents.batch.retrieve();
+  const document = await client.documents.retrieve();
 
-  console.log(batch.status);
+  console.log(document.status);
 }
 
 main();
@@ -41,10 +43,12 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import CarbonAPI from 'carbonapi-node';
 
-const client = new CarbonAPI();
+const client = new CarbonAPI({
+  apiKey: process.env['API_KEY'], // This is the default and can be omitted
+});
 
 async function main() {
-  const batch: CarbonAPI.Documents.BatchRetrieveResponse = await client.documents.batch.retrieve();
+  const document: CarbonAPI.DocumentRetrieveResponse = await client.documents.retrieve();
 }
 
 main();
@@ -61,7 +65,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const batch = await client.documents.batch.retrieve().catch(async (err) => {
+  const document = await client.documents.retrieve().catch(async (err) => {
     if (err instanceof CarbonAPI.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -104,7 +108,7 @@ const client = new CarbonAPI({
 });
 
 // Or, configure per-request:
-await client.documents.batch.retrieve({
+await client.documents.retrieve({
   maxRetries: 5,
 });
 ```
@@ -121,7 +125,7 @@ const client = new CarbonAPI({
 });
 
 // Override per-request:
-await client.documents.batch.retrieve({
+await client.documents.retrieve({
   timeout: 5 * 1000,
 });
 ```
@@ -142,13 +146,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new CarbonAPI();
 
-const response = await client.documents.batch.retrieve().asResponse();
+const response = await client.documents.retrieve().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: batch, response: raw } = await client.documents.batch.retrieve().withResponse();
+const { data: document, response: raw } = await client.documents.retrieve().withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(batch.status);
+console.log(document.status);
 ```
 
 ### Making custom/undocumented requests
@@ -252,7 +256,7 @@ const client = new CarbonAPI({
 });
 
 // Override per-request:
-await client.documents.batch.retrieve({
+await client.documents.retrieve({
   httpAgent: new http.Agent({ keepAlive: false }),
 });
 ```
