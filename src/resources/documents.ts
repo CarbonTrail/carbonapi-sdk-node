@@ -256,7 +256,7 @@ export type DocumentUploadParams = DocumentUploadParams.Variant0 | DocumentUploa
 
 export declare namespace DocumentUploadParams {
   export interface Variant0 {
-    documents: Array<DocumentUploadParams.Variant0.Document>;
+    documents: Array<Variant0.Document>;
 
     type: 'url';
 
@@ -284,7 +284,7 @@ export declare namespace DocumentUploadParams {
   }
 
   export interface Variant1 {
-    documents: Array<DocumentUploadParams.Variant1.Document>;
+    documents: Array<Variant1.Document>;
 
     type: 's3';
 
