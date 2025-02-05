@@ -5,7 +5,7 @@ import * as Core from '../core';
 
 export class Documents extends APIResource {
   /**
-   * Retrieve a batch
+   * Retrieve a batch by ID
    */
   retrieve(batchId: string, options?: Core.RequestOptions): Core.APIPromise<DocumentRetrieveResponse> {
     return this._client.get(`/documents/batch/${batchId}`, options);
@@ -256,7 +256,7 @@ export type DocumentUploadParams = DocumentUploadParams.Variant0 | DocumentUploa
 
 export declare namespace DocumentUploadParams {
   export interface Variant0 {
-    documents: Array<DocumentUploadParams.Variant0.Document>;
+    documents: Array<Variant0.Document>;
 
     type: 'url';
 
@@ -284,7 +284,7 @@ export declare namespace DocumentUploadParams {
   }
 
   export interface Variant1 {
-    documents: Array<DocumentUploadParams.Variant1.Document>;
+    documents: Array<Variant1.Document>;
 
     type: 's3';
 
