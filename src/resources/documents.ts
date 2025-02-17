@@ -183,6 +183,12 @@ export namespace DocumentRetrieveResponse {
       unit: string;
 
       /**
+       * A description of the line item, such as a description of the goods or services
+       * provided. May be omitted for complex documents.
+       */
+      description?: string;
+
+      /**
        * Whether the item has occured due to another activity, for example T&D losses.
        */
       isSideEffect?: boolean;
