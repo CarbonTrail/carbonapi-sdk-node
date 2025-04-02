@@ -270,6 +270,13 @@ export declare namespace DocumentUploadParams {
      * The ID of the batch. If not provided, we will generate one.
      */
     batchId?: string;
+
+    /**
+     * Metadata to be associated with the batch. This will be returned in the webhook,
+     * with all batch items as well as batch documents, and can be used to store
+     * additional information about the batch.
+     */
+    meta?: Record<string, unknown>;
   }
 
   export namespace Variant0 {
@@ -298,6 +305,13 @@ export declare namespace DocumentUploadParams {
      * The ID of the batch. If not provided, we will generate one.
      */
     batchId?: string;
+
+    /**
+     * Metadata to be associated with the batch. This will be returned in the webhook,
+     * with all batch items as well as batch documents, and can be used to store
+     * additional information about the batch.
+     */
+    meta?: Record<string, unknown>;
   }
 
   export namespace Variant1 {

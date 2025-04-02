@@ -57,6 +57,7 @@ describe('resource documents', () => {
       ],
       type: 'url',
       batchId: 'batchId',
+      meta: { foo: 'bar' },
     });
   });
 });
