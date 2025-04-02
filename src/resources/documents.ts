@@ -276,7 +276,7 @@ export declare namespace DocumentUploadParams {
      * with all batch items as well as batch documents, and can be used to store
      * additional information about the batch.
      */
-    meta?: Record<string, unknown>;
+    meta?: Record<string, string | number>;
   }
 
   export namespace Variant0 {
@@ -288,11 +288,42 @@ export declare namespace DocumentUploadParams {
       fileUrl: string;
 
       /**
+       * Provide a suggested document category. If set, then CarbonAPI will use this
+       * category to categorise the documents in the batch.
+       */
+      categoryHint?:
+        | 'FUEL'
+        | 'ELECTRICITY'
+        | 'WASTE'
+        | 'FREIGHT_AIR'
+        | 'FREIGHT_ROAD'
+        | 'FREIGHT_SEAR'
+        | 'FREIGHT_RAIL'
+        | 'TRAVEL_AIR_TICKET'
+        | 'TRAVEL_AIR_REMITTANCE'
+        | 'TRAVEL_ROAD_CAR'
+        | 'TRAVEL_ROAD_BUS'
+        | 'TRAVEL_ROAD_TAXI_OR_RIDESHARE'
+        | 'TRAVEL_SEA'
+        | 'TRAVEL_RAIL'
+        | 'ACCOMMODATION'
+        | 'ACCOMODATION'
+        | 'SUPPLY_CHAIN'
+        | 'UNKNOWN';
+
+      /**
        * The ID of the file to be processed. This can be used to help you keep track of
        * requests. If supplied, we will also emit a webhook of progress on a per-file
        * basis.
        */
       fileId?: string;
+
+      /**
+       * Metadata to be associated with the document. This will be returned in the
+       * webhook, with all batch items as well as batch documents, and can be used to
+       * store additional information about the document.
+       */
+      meta?: Record<string, string | number>;
     }
   }
 
@@ -311,7 +342,7 @@ export declare namespace DocumentUploadParams {
      * with all batch items as well as batch documents, and can be used to store
      * additional information about the batch.
      */
-    meta?: Record<string, unknown>;
+    meta?: Record<string, string | number>;
   }
 
   export namespace Variant1 {
