@@ -5,7 +5,7 @@ import * as Core from '../core';
 
 export class Documents extends APIResource {
   /**
-   * Retrieve a batch
+   * Retrieve a batch by ID
    */
   retrieve(batchId: string, options?: Core.RequestOptions): Core.APIPromise<DocumentRetrieveResponse> {
     return this._client.get(`/documents/batch/${batchId}`, options);
@@ -183,6 +183,12 @@ export namespace DocumentRetrieveResponse {
       unit: string;
 
       /**
+       * A description of the line item, such as a description of the goods or services
+       * provided. May be omitted for complex documents.
+       */
+      description?: string;
+
+      /**
        * Whether the item has occured due to another activity, for example T&D losses.
        */
       isSideEffect?: boolean;
@@ -256,7 +262,7 @@ export type DocumentUploadParams = DocumentUploadParams.Variant0 | DocumentUploa
 
 export declare namespace DocumentUploadParams {
   export interface Variant0 {
-    documents: Array<DocumentUploadParams.Variant0.Document>;
+    documents: Array<Variant0.Document>;
 
     type: 'url';
 
@@ -264,6 +270,13 @@ export declare namespace DocumentUploadParams {
      * The ID of the batch. If not provided, we will generate one.
      */
     batchId?: string;
+
+    /**
+     * Metadata to be associated with the batch. This will be returned in the webhook,
+     * with all batch items as well as batch documents, and can be used to store
+     * additional information about the batch.
+     */
+    meta?: Record<string, string | number>;
   }
 
   export namespace Variant0 {
@@ -275,16 +288,47 @@ export declare namespace DocumentUploadParams {
       fileUrl: string;
 
       /**
+       * Provide a suggested document category. If set, then CarbonAPI will use this
+       * category to categorise the documents in the batch.
+       */
+      categoryHint?:
+        | 'FUEL'
+        | 'ELECTRICITY'
+        | 'WASTE'
+        | 'FREIGHT_AIR'
+        | 'FREIGHT_ROAD'
+        | 'FREIGHT_SEAR'
+        | 'FREIGHT_RAIL'
+        | 'TRAVEL_AIR_TICKET'
+        | 'TRAVEL_AIR_REMITTANCE'
+        | 'TRAVEL_ROAD_CAR'
+        | 'TRAVEL_ROAD_BUS'
+        | 'TRAVEL_ROAD_TAXI_OR_RIDESHARE'
+        | 'TRAVEL_SEA'
+        | 'TRAVEL_RAIL'
+        | 'ACCOMMODATION'
+        | 'ACCOMODATION'
+        | 'SUPPLY_CHAIN'
+        | 'UNKNOWN';
+
+      /**
        * The ID of the file to be processed. This can be used to help you keep track of
        * requests. If supplied, we will also emit a webhook of progress on a per-file
        * basis.
        */
       fileId?: string;
+
+      /**
+       * Metadata to be associated with the document. This will be returned in the
+       * webhook, with all batch items as well as batch documents, and can be used to
+       * store additional information about the document.
+       */
+      meta?: Record<string, string | number>;
     }
   }
 
   export interface Variant1 {
-    documents: Array<DocumentUploadParams.Variant1.Document>;
+    documents: Array<Variant1.Document>;
 
     type: 's3';
 
@@ -292,6 +336,13 @@ export declare namespace DocumentUploadParams {
      * The ID of the batch. If not provided, we will generate one.
      */
     batchId?: string;
+
+    /**
+     * Metadata to be associated with the batch. This will be returned in the webhook,
+     * with all batch items as well as batch documents, and can be used to store
+     * additional information about the batch.
+     */
+    meta?: Record<string, string | number>;
   }
 
   export namespace Variant1 {
