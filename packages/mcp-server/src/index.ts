@@ -1,209 +1,190 @@
-// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
-
-import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { CallToolRequestSchema, ListToolsRequestSchema, Tool } from '@modelcontextprotocol/sdk/types.js';
-import CarbonAPI from 'carbonapi-node';
-
-// Instantiate client
-const client = new CarbonAPI();
-
-// Create server instance
-const server = new Server(
-  {
-    name: 'carbon_api_api',
-    version: '0.1.0',
-  },
-  {
-    capabilities: {
-      tools: {},
-    },
-  },
-);
-
-const tools: Tool[] = [];
-const handlers: Record<string, Function> = {};
-
-registerApiMethod({
-  name: 'retrieve_documents',
-  description: 'Retrieve a batch by ID',
-  inputSchema: {
-    type: 'object',
-    properties: {
-      batchId: {
-        type: 'string',
-        description: 'The ID of the batch to retrieve.',
-      },
-    },
-  },
-  handler: (args: any) => {
-    const { batchId } = args;
-    return client.documents.retrieve(batchId);
-  },
-});
-
-registerApiMethod({
-  name: 'upload_documents',
-  description: 'Batch upload documents',
-  inputSchema: {
-    type: 'object',
-    anyOf: [
-      {
-        type: 'object',
-        properties: {
-          documents: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                fileUrl: {
-                  type: 'string',
-                  description:
-                    'A link to the file to be processed, for example a presigned S3 bucket object URL.',
-                },
-                categoryHint: {
-                  type: 'string',
-                  description:
-                    'Provide a suggested document category. If set, then CarbonAPI will use this category to categorise the documents in the batch.',
-                  enum: [
-                    'FUEL',
-                    'ELECTRICITY',
-                    'WASTE',
-                    'FREIGHT_AIR',
-                    'FREIGHT_ROAD',
-                    'FREIGHT_SEAR',
-                    'FREIGHT_RAIL',
-                    'TRAVEL_AIR_TICKET',
-                    'TRAVEL_AIR_REMITTANCE',
-                    'TRAVEL_ROAD_CAR',
-                    'TRAVEL_ROAD_BUS',
-                    'TRAVEL_ROAD_TAXI_OR_RIDESHARE',
-                    'TRAVEL_SEA',
-                    'TRAVEL_RAIL',
-                    'ACCOMMODATION',
-                    'ACCOMODATION',
-                    'SUPPLY_CHAIN',
-                    'UNKNOWN',
-                  ],
-                },
-                fileId: {
-                  type: 'string',
-                  description:
-                    'The ID of the file to be processed. This can be used to help you keep track of requests. If supplied, we will also emit a webhook of progress on a per-file basis.',
-                },
-                meta: {
-                  type: 'object',
-                  description:
-                    'Metadata to be associated with the document. This will be returned in the webhook, with all batch items as well as batch documents, and can be used to store additional information about the document.',
-                },
-              },
-              required: ['fileUrl'],
-            },
-          },
-          type: {
-            type: 'string',
-            enum: ['url'],
-          },
-          batchId: {
-            type: 'string',
-            description: 'The ID of the batch. If not provided, we will generate one.',
-          },
-          meta: {
-            type: 'object',
-            description:
-              'Metadata to be associated with the batch. This will be returned in the webhook, with all batch items as well as batch documents, and can be used to store additional information about the batch.',
-          },
-        },
-      },
-      {
-        type: 'object',
-        properties: {
-          documents: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                bucket: {
-                  type: 'string',
-                },
-                roleArn: {
-                  type: 'string',
-                },
-              },
-              required: ['bucket', 'roleArn'],
-            },
-          },
-          type: {
-            type: 'string',
-            enum: ['s3'],
-          },
-          batchId: {
-            type: 'string',
-            description: 'The ID of the batch. If not provided, we will generate one.',
-          },
-          meta: {
-            type: 'object',
-            description:
-              'Metadata to be associated with the batch. This will be returned in the webhook, with all batch items as well as batch documents, and can be used to store additional information about the batch.',
-          },
-        },
-      },
-    ],
-  },
-  handler: (args: any) => {
-    const { ...body } = args;
-    return client.documents.upload(body);
-  },
-});
-
-server.setRequestHandler(ListToolsRequestSchema, async () => {
-  return {
-    tools,
-  };
-});
-
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  const { name, arguments: args } = request.params;
-
-  const handler = handlers[name];
-  if (!handler) {
-    throw new Error(`Unknown tool: ${name}`);
-  }
-
-  const result = await handler(args);
-  return {
-    content: [
-      {
-        type: 'text',
-        text: JSON.stringify(result, null, 2),
-      },
-    ],
-  };
-});
-
-function registerApiMethod({
-  name,
-  description,
-  inputSchema,
-  handler,
-}: {
-  name: string;
-  description: string;
-  inputSchema: Tool['inputSchema'];
-  handler: Function;
-}) {
-  tools.push({ name, description, inputSchema });
-  handlers[name] = handler;
-}
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+import { init, server } from './server';
+import { endpoints, Filter, query } from './tools';
 
 async function main() {
+  const opts = yargs(hideBin(process.argv))
+    .option('tool', {
+      type: 'string',
+      array: true,
+      description: 'Include tools matching the specified names',
+    })
+    .option('resource', {
+      type: 'string',
+      array: true,
+      description: 'Include tools matching the specified resources',
+    })
+    .option('operation', {
+      type: 'string',
+      array: true,
+      choices: ['read', 'write'],
+      description: 'Include tools matching the specified operations',
+    })
+    .option('tag', {
+      type: 'string',
+      array: true,
+      description: 'Include tools with the specified tags',
+    })
+    .option('no-tool', {
+      type: 'string',
+      array: true,
+      description: 'Exclude tools matching the specified names',
+    })
+    .option('no-resource', {
+      type: 'string',
+      array: true,
+      description: 'Exclude tools matching the specified resources',
+    })
+    .option('no-operation', {
+      type: 'string',
+      array: true,
+      description: 'Exclude tools matching the specified operations',
+    })
+    .option('no-tag', {
+      type: 'string',
+      array: true,
+      description: 'Exclude tools with the specified tags',
+    })
+    .option('list', {
+      type: 'boolean',
+      description: 'List all tools and exit',
+    })
+    .help();
+
+  for (const [command, desc] of examples()) {
+    opts.example(command, desc);
+  }
+
+  const argv = opts.parseSync();
+
+  if (argv.list) {
+    listAllTools();
+    return;
+  }
+  const filters: Filter[] = [];
+
+  for (const tag of argv.tag || []) {
+    filters.push({ type: 'tag', op: 'include', value: tag });
+  }
+
+  for (const tag of argv.noTag || []) {
+    filters.push({ type: 'tag', op: 'exclude', value: tag });
+  }
+
+  for (const resource of argv.resource || []) {
+    filters.push({ type: 'resource', op: 'include', value: resource });
+  }
+
+  for (const resource of argv.noResource || []) {
+    filters.push({ type: 'resource', op: 'exclude', value: resource });
+  }
+
+  for (const tool of argv.tool || []) {
+    filters.push({ type: 'tool', op: 'include', value: tool });
+  }
+
+  for (const tool of argv.noTool || []) {
+    filters.push({ type: 'tool', op: 'exclude', value: tool });
+  }
+
+  for (const operation of argv.operation || []) {
+    filters.push({ type: 'operation', op: 'include', value: operation });
+  }
+
+  for (const operation of argv.noOperation || []) {
+    filters.push({ type: 'operation', op: 'exclude', value: operation });
+  }
+
+  const filteredEndpoints = query(filters, endpoints);
+
+  if (filteredEndpoints.length === 0) {
+    console.error('No tools match the provided filters.');
+    process.exit(1);
+  }
+
+  console.error(
+    `MCP Server starting with ${filteredEndpoints.length} tools:`,
+    filteredEndpoints.map((e) => e.tool.name),
+  );
+
+  init({ server, endpoints: filteredEndpoints });
+
   const transport = new StdioServerTransport();
   await server.connect(transport);
   console.error('MCP Server running on stdio');
 }
 
-console.error('running main');
-main().catch((error) => {
-  console.error('Fatal error in main():', error);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error('Fatal error in main():', error);
+    process.exit(1);
+  });
+}
+
+function listAllTools() {
+  if (endpoints.length === 0) {
+    console.error('No tools available.');
+    return;
+  }
+  console.error('Available tools:\n');
+
+  // Group endpoints by resource
+  const resourceGroups = new Map<string, typeof endpoints>();
+
+  for (const endpoint of endpoints) {
+    const resource = endpoint.metadata.resource;
+    if (!resourceGroups.has(resource)) {
+      resourceGroups.set(resource, []);
+    }
+    resourceGroups.get(resource)!.push(endpoint);
+  }
+
+  // Sort resources alphabetically
+  const sortedResources = Array.from(resourceGroups.keys()).sort();
+
+  // Display hierarchically by resource
+  for (const resource of sortedResources) {
+    console.error(`Resource: ${resource}`);
+
+    const resourceEndpoints = resourceGroups.get(resource)!;
+    // Sort endpoints by tool name
+    resourceEndpoints.sort((a, b) => a.tool.name.localeCompare(b.tool.name));
+
+    for (const endpoint of resourceEndpoints) {
+      const {
+        tool,
+        metadata: { operation, tags },
+      } = endpoint;
+
+      console.error(`  - ${tool.name} (${operation}) ${tags.length > 0 ? `tags: ${tags.join(', ')}` : ''}`);
+      console.error(`    Description: ${tool.description}`);
+    }
+    console.error('');
+  }
+}
+
+function examples(): [string, string][] {
+  const firstEndpoint = endpoints[0]!;
+  const secondEndpoint =
+    endpoints.find((e) => e.metadata.resource !== firstEndpoint.metadata.resource) || endpoints[1];
+  const tag = endpoints.find((e) => e.metadata.tags.length > 0)?.metadata.tags[0];
+  const otherEndpoint = secondEndpoint || firstEndpoint;
+
+  return [
+    [
+      `--tool="${firstEndpoint.tool.name}" ${secondEndpoint ? `--tool="${secondEndpoint.tool.name}"` : ''}`,
+      'Include tools by name',
+    ],
+    [
+      `--resource="${firstEndpoint.metadata.resource}" --operation="read"`,
+      'Filter by resource and operation',
+    ],
+    [
+      `--resource="${otherEndpoint.metadata.resource}*" --no-tool="${otherEndpoint.tool.name}"`,
+      'Use resource wildcards and exclusions',
+    ],
+    ...(tag ? [[`--tag="${tag}"`, 'Filter based on tags'] as [string, string]] : []),
+  ];
+}
