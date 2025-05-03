@@ -5,8 +5,8 @@
   "compilerOptions": {
     "rootDir": "./dist/src",
     "paths": {
-      "carbonapi-node-mcp/*": ["src/*"],
-      "carbonapi-node-mcp": ["src/index.ts"]
+      "carbonapi-node-mcp/*": ["dist/src/*"],
+      "carbonapi-node-mcp": ["dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,
