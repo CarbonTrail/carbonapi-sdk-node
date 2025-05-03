@@ -24,8 +24,8 @@ export const tool: Tool = {
   },
 };
 
-export const handler = (client: CarbonAPI, args: any) => {
-  const { batchId } = args;
+export const handler = (client: CarbonAPI, args: Record<string, unknown> | undefined) => {
+  const { batchId, ...body } = args as any;
   return client.documents.retrieve(batchId);
 };
 

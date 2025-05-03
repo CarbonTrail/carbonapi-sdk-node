@@ -120,8 +120,8 @@ export const tool: Tool = {
   },
 };
 
-export const handler = (client: CarbonAPI, args: any) => {
-  const { ...body } = args;
+export const handler = (client: CarbonAPI, args: Record<string, unknown> | undefined) => {
+  const body = args as any;
   return client.documents.upload(body);
 };
 
