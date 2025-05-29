@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   resource: 'documents',
   operation: 'write',
   tags: [],
+  httpMethod: 'post',
+  httpPath: '/documents/batch',
 };
 
 export const tool: Tool = {
