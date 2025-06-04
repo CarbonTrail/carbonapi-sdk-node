@@ -26,13 +26,9 @@ const client = new CarbonAPI({
   apiKey: process.env['API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const document = await client.documents.retrieve('REPLACE_ME');
+const document = await client.documents.retrieve('REPLACE_ME');
 
-  console.log(document.status);
-}
-
-main();
+console.log(document.status);
 ```
 
 ### Request & Response types
@@ -47,11 +43,7 @@ const client = new CarbonAPI({
   apiKey: process.env['API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const document: CarbonAPI.DocumentRetrieveResponse = await client.documents.retrieve('REPLACE_ME');
-}
-
-main();
+const document: CarbonAPI.DocumentRetrieveResponse = await client.documents.retrieve('REPLACE_ME');
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -64,19 +56,15 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const document = await client.documents.retrieve('REPLACE_ME').catch(async (err) => {
-    if (err instanceof CarbonAPI.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-}
-
-main();
+const document = await client.documents.retrieve('REPLACE_ME').catch(async (err) => {
+  if (err instanceof CarbonAPI.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
 Error codes are as follows:
