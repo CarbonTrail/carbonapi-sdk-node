@@ -1,5 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import { asTextContentResult } from 'carbonapi-node-mcp/tools/types';
+
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import type { Metadata } from '../';
 import CarbonAPI from 'carbonapi-node';
@@ -26,9 +28,9 @@ export const tool: Tool = {
   },
 };
 
-export const handler = (client: CarbonAPI, args: Record<string, unknown> | undefined) => {
+export const handler = async (client: CarbonAPI, args: Record<string, unknown> | undefined) => {
   const { batchId, ...body } = args as any;
-  return client.documents.retrieve(batchId);
+  return asTextContentResult(await client.documents.retrieve(batchId));
 };
 
 export default { metadata, tool, handler };
