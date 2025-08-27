@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { asTextContentResult } from 'carbonapi-node-mcp/tools/types';
+import { maybeFilter } from 'carbonapi-node-mcp/filtering';
+import { Metadata, asTextContentResult } from 'carbonapi-node-mcp/tools/types';
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
-import type { Metadata } from '../';
 import CarbonAPI from 'carbonapi-node';
 
 export const metadata: Metadata = {
@@ -16,7 +16,8 @@ export const metadata: Metadata = {
 
 export const tool: Tool = {
   name: 'upload_documents',
-  description: 'Batch upload documents',
+  description:
+    "When using this tool, always use the `jq_filter` parameter to reduce the response size and improve performance.\n\nOnly omit if you're sure you don't need the data.\n\nBatch upload documents\n\n# Response Schema\n```json\n{\n  type: 'object',\n  properties: {\n    batchId: {\n      type: 'string'\n    }\n  }\n}\n```",
   inputSchema: {
     type: 'object',
     anyOf: [
@@ -41,6 +42,7 @@ export const tool: Tool = {
                     'FUEL',
                     'ELECTRICITY',
                     'WASTE',
+                    'STATIONARY_COMBUSTION',
                     'FREIGHT_AIR',
                     'FREIGHT_ROAD',
                     'FREIGHT_SEAR',
@@ -67,6 +69,7 @@ export const tool: Tool = {
                   type: 'object',
                   description:
                     'Metadata to be associated with the document. This will be returned in the webhook, with all batch items as well as batch documents, and can be used to store additional information about the document.',
+                  additionalProperties: true,
                 },
               },
               required: ['fileUrl'],
@@ -84,8 +87,10 @@ export const tool: Tool = {
             type: 'object',
             description:
               'Metadata to be associated with the batch. This will be returned in the webhook, with all batch items as well as batch documents, and can be used to store additional information about the batch.',
+            additionalProperties: true,
           },
         },
+        required: ['documents', 'type'],
       },
       {
         type: 'object',
@@ -117,16 +122,27 @@ export const tool: Tool = {
             type: 'object',
             description:
               'Metadata to be associated with the batch. This will be returned in the webhook, with all batch items as well as batch documents, and can be used to store additional information about the batch.',
+            additionalProperties: true,
           },
         },
+        required: ['documents', 'type'],
       },
     ],
+    properties: {
+      jq_filter: {
+        type: 'string',
+        title: 'jq Filter',
+        description:
+          'A jq filter to apply to the response to include certain fields. Consult the output schema in the tool description to see the fields that are available.\n\nFor example: to include only the `name` field in every object of a results array, you can provide ".results[].name".\n\nFor more information, see the [jq documentation](https://jqlang.org/manual/).',
+      },
+    },
   },
+  annotations: {},
 };
 
 export const handler = async (client: CarbonAPI, args: Record<string, unknown> | undefined) => {
-  const body = args as any;
-  return asTextContentResult(await client.documents.upload(body));
+  const { jq_filter, ...body } = args as any;
+  return asTextContentResult(await maybeFilter(jq_filter, await client.documents.upload(body)));
 };
 
 export default { metadata, tool, handler };
