@@ -1,5 +1,58 @@
 # Changelog
 
+## 0.1.0-alpha.9 (2025-08-27)
+
+Full Changelog: [v0.1.0-alpha.8...v0.1.0-alpha.9](https://github.com/CarbonTrail/carbonapi-sdk-node/compare/v0.1.0-alpha.8...v0.1.0-alpha.9)
+
+### Features
+
+* **api:** api update ([9f76845](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/9f768450f285e8490e600d50beb61b917e4dcdf2))
+* **client:** add support for endpoint-specific base URLs ([4fd8e0c](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/4fd8e0c4508d55a733f2265236bf6328ca84a8d9))
+* **mcp:** implement support for binary responses ([d4569f2](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/d4569f2fc0cb8a7e04119090b9be197bf5976653))
+* **mcp:** include http information in tools ([040e088](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/040e0881fb78aadaef39ad634d3661b8923711b0))
+* **mcp:** set X-Stainless-MCP header ([210d978](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/210d978eff9b3c221dec38486831f79bcec6ef86))
+* **mcp:** support dynamically discovering and invoking tools for APIs with many endpoints ([a09f7a7](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/a09f7a79d9c9f3e3ec1af32a08614949bbc65b5b))
+* more gracefully handle $refs and work around schema limitations ([7fc3c18](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/7fc3c18fce30b3533a13d0db31a2e67704ce64c8))
+
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([ffded8c](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/ffded8c99b8d43fcb8e593a1516ac55a5a2377d8))
+* **mcp:** explicitly include zod and zod-to-json-schema in package.json ([7192f23](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/7192f230ccf7ba0d145ecdc39458c8d354df10f8))
+* **mcp:** fix cursor schema transformation issue with recursive references ([a100a0a](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/a100a0a09795121f0044ba436cfd6c44f56efe78))
+* **mcp:** include description in dynamic tool search ([9641295](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/9641295c339c04ec9e3798429fab2a44590e41a8))
+* **mcp:** remove ajv dependency so MCP servers are more compatible with Cloudflare Workers ([12653fd](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/12653fd2592d0592f960e46012ea9ea71872b35a))
+* publish script — handle NPM errors correctly ([bf54e9b](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/bf54e9b835a9f14aa573d870343a17ebf7166d8e))
+
+
+### Chores
+
+* **build:** automatically build subpackages if present ([552fb06](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/552fb067c9a33de1c3a0bed5242fb7bc78648f7a))
+* **ci:** bump node version for release workflows ([dbec3db](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/dbec3dbdb50819a51125e78a26ad8c8c0a906ed7))
+* **ci:** enable for pull requests ([4d8b109](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/4d8b109e8c5d5102ce73ad1e89866d893ee21d3d))
+* **ci:** only run for pushes and fork pull requests ([2615b03](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/2615b0385742a30d3941c943ea0eecc55c568c22))
+* configure new SDK language ([f706b05](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/f706b051483cae89ad1a7fb7b381687324af7c21))
+* **docs:** grammar improvements ([82267ba](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/82267bad799fdf01ba3fd36d1bb3ee8676ac2886))
+* **docs:** use top-level-await in example snippets ([1285d7f](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/1285d7fde5ce0c3dc67668c511012cfa95f5d766))
+* improve publish-npm script --latest tag logic ([88ebe91](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/88ebe91e6cf3fa48cd1c67c9784579cf3bd90a80))
+* **internal:** codegen related update ([2167dda](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/2167dda2ce563433215435cdf332b6a3d19d9bda))
+* **internal:** codegen related update ([c673bef](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/c673bef49ea363c0864da6d6a6dd5b7bda92f214))
+* **internal:** make base APIResource abstract ([868147b](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/868147bc57ef154b1a3d5bf2f807bfe2df12967e))
+* **internal:** update dependency ([f89f956](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/f89f95680b8d325d4f779c2dda942b0a0a0ba654))
+* **mcp:** provides high-level initMcpServer function and exports known clients ([c7a8c4c](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/c7a8c4c477b773eab136bbb9d01ba2d010fa134b))
+* **mcp:** remove duplicate assignment ([7a5dd3f](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/7a5dd3f67117235c772506c534798fcd905fee58))
+* **tests:** use node 22 for CI tests ([a5915a4](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/a5915a4b8809ae3ab67a6db9dff2e2639c4e3207))
+
+
+### Documentation
+
+* **readme:** fix typo ([38706ae](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/38706ae233f2d0c1be056b9c7bf05df74515c542))
+
+
+### Refactors
+
+* **types:** replace Record with mapped types ([2b23eae](https://github.com/CarbonTrail/carbonapi-sdk-node/commit/2b23eae1c534d50dcd2cd6d50afa41d707ccdaf9))
+
 ## 0.1.0-alpha.8 (2025-04-02)
 
 Full Changelog: [v0.1.0-alpha.7...v0.1.0-alpha.8](https://github.com/CarbonTrail/carbonapi-sdk-node/compare/v0.1.0-alpha.7...v0.1.0-alpha.8)

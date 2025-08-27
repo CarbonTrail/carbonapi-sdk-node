@@ -1,2 +1,4 @@
 configured_endpoints: 2
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/carbontrail-limited%2Fcarbonapi-b9474fc194bed01b688818e0dd35ac56526eb3f71b5fcd9ecb0cc882b46c0ad9.yml
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/carbontrail-limited%2Fcarbonapi-bf34b8814003e8b34e5c95be3141540e3cd730905775e13139eb6ed91a86200c.yml
+openapi_spec_hash: 9422500068f5b7ab69d2c4268657e003
+config_hash: 68b9596b8d1be2cd9b26f9637e0183fc

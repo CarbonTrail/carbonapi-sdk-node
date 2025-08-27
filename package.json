@@ -1,6 +1,6 @@
 {
   "name": "carbonapi-node",
-  "version": "0.1.0-alpha.8",
+  "version": "0.1.0-alpha.9",
   "description": "The official TypeScript library for the Carbon API API",
   "author": "Carbon API <hello@carbontrail.co>",
   "types": "dist/index.d.ts",
@@ -13,6 +13,9 @@
     "**/*"
   ],
   "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "./scripts/test",
     "build": "./scripts/build",
@@ -58,10 +61,6 @@
     "./shims/web.js",
     "./shims/web.mjs"
   ],
-  "imports": {
-    "carbonapi-node": ".",
-    "carbonapi-node/*": "./src/*"
-  },
   "exports": {
     "./_shims/auto/*": {
       "deno": {

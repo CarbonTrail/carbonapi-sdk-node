@@ -49,6 +49,7 @@ export namespace DocumentRetrieveResponse {
       | 'FUEL'
       | 'ELECTRICITY'
       | 'WASTE'
+      | 'STATIONARY_COMBUSTION'
       | 'FREIGHT_AIR'
       | 'FREIGHT_ROAD'
       | 'FREIGHT_SEAR'
@@ -276,7 +277,7 @@ export declare namespace DocumentUploadParams {
      * with all batch items as well as batch documents, and can be used to store
      * additional information about the batch.
      */
-    meta?: Record<string, string | number>;
+    meta?: { [key: string]: string | number };
   }
 
   export namespace Variant0 {
@@ -295,6 +296,7 @@ export declare namespace DocumentUploadParams {
         | 'FUEL'
         | 'ELECTRICITY'
         | 'WASTE'
+        | 'STATIONARY_COMBUSTION'
         | 'FREIGHT_AIR'
         | 'FREIGHT_ROAD'
         | 'FREIGHT_SEAR'
@@ -323,7 +325,7 @@ export declare namespace DocumentUploadParams {
        * webhook, with all batch items as well as batch documents, and can be used to
        * store additional information about the document.
        */
-      meta?: Record<string, string | number>;
+      meta?: { [key: string]: string | number };
     }
   }
 
@@ -342,7 +344,7 @@ export declare namespace DocumentUploadParams {
      * with all batch items as well as batch documents, and can be used to store
      * additional information about the batch.
      */
-    meta?: Record<string, string | number>;
+    meta?: { [key: string]: string | number };
   }
 
   export namespace Variant1 {
